@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  author: MyString
-  isbn: MyString
+  title: "Of Mice and Men"
+  author: "Tuva"
+  isbn: "123456789"
 
 two:
-  title: MyString
-  author: MyString
-  isbn: MyString2
+  title: "Romeo and Juliet"
+  author: "Alfred"
+  isbn: "1234567890"
