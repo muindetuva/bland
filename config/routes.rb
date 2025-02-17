@@ -19,4 +19,6 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "pages#dashboard", as: "dashboard"
 
+  resource :registration, only: [ :new, :create ]
+
 end
