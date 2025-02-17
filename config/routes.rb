@@ -23,4 +23,5 @@ Rails.application.routes.draw do
 
   resources :books, only: [:index, :show]
 
+  resources :borrowing_records, only: [ :create, :update ]
 end
