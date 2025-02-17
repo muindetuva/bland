@@ -1,0 +1,4 @@
+<h1>Welcome to the dashboard</h1>
+<% if Current.user.present? %>
+  <%= button_to "Sign out", session_path, method: :delete %>
+<% end %>

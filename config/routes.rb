@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "pages/home"
   resource :session
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -13,4 +14,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  root "pages#home"
+
+  get "dashboard", to: "pages#dashboard", as: "dashboard"
+
 end
