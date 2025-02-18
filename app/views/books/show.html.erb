@@ -4,3 +4,9 @@
   <p>ISBN: <%= @book.isbn %></p>
 
   <p>Borrow Link Here</p>
+
+<% if BorrowingRecord.exists?(book: @book, returned_at: nil) %>
+  <p>Book is currently borrowed</p>
+<% else %>
+  <%= button_to "Borrow", borrowing_records_path(book_id: @book.id), method: :post %>
+<% end %>
