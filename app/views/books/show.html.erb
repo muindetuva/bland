@@ -1,12 +1,43 @@
-<h1>Book Details</h1>
-  <h2><%= @book.title %></h2>
-  <p>Author: <%= @book.author %></p>
-  <p>ISBN: <%= @book.isbn %></p>
+<div class="mt-20 flex flex-col md:flex-row md:items-start md:justify-center md:gap-12">
 
-  <p>Borrow Link Here</p>
+<!--  Book Cover and details-->
+  <div class="flex flex-col items-center md:items-start text-center md:text-left">
+    <!-- Book Cover -->
+    <div class="w-56 h-72 bg-black text-white flex justify-center items-center rounded-lg shadow-lg">
+      <p class="text-lg font-semibold text-center px-3">
+        <%= @book.title %>
+      </p>
+    </div>
 
-<% if BorrowingRecord.exists?(book: @book, returned_at: nil) %>
-  <p>Book is currently borrowed</p>
-<% else %>
-  <%= button_to "Borrow", borrowing_records_path(book_id: @book.id), method: :post %>
-<% end %>
+    <p class="text-2xl font-semibold mt-4">
+      <%= @book.title %>
+    </p>
+    <p class="text-gray-600 mt-2">
+      By <span class="font-bold"> <%= @book.author %> </span>
+    </p>
+    <p class="text-xs text-gray-500 mt-2">
+      ISBN: <%= @book.isbn %>
+    </p>
+  </div>
+
+<!--Actions-->
+  <div class="mt-6 md:mt-0 flex flex-col items-center md:items-start space-y-3">
+    <% borrowing_record = BorrowingRecord.find_by(book: @book, returned_at: nil) %>
+
+    <% if borrowing_record %>
+      <% if borrowing_record.user == Current.user %>
+
+        <%= button_to "Return Book", borrowing_record_path(borrowing_record), method: :patch, class: "bg-red-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700 transition" %>
+
+      <% else %>
+
+        <p class="text-sm text-gray-500">📚 This book is currently borrowed.</p>
+
+      <% end %>
+    <% else %>
+
+      <%= button_to "Borrow", borrowing_records_path(book_id: @book.id), method: :post, class: "bg-black text-white px-4 py-2 rounded-md font-semibold hover:opacity-90 transition" %>
+
+    <% end %>
+  </div>
+</div>
