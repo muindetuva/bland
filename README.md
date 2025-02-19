@@ -32,7 +32,7 @@ bin/rails db:create db:migrate db:seed
 ```
 5. Start the dev server
 ```
-bin/rails server
+bin/dev
 ```
 6. Access the app. Open `http://localhost:3000`
 
