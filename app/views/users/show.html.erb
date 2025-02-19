@@ -1,29 +1,57 @@
-<div>
-  <h1 class="font-bold text-4xl">Users#show</h1>
-  <p>Find me in app/views/users/show.html.erb</p>
-</div>
 
+<h2 class="text-2xl font-semibold mb-4 mt-10">Currently Borrowed Books</h2>
 
-<!-- 📜 Borrowing History -->
-<!--<h2 class="text-2xl font-semibold mt-8 mb-4">Borrowing History</h2>-->
-<%# if @borrowing_history.any? %>
-<!--  <ul class="space-y-4">-->
-    <%# @borrowing_history.first(5).each do |record| %>
-<!--      <li class="p-4 border rounded-lg bg-white shadow-md">-->
-<!--        <strong><%#= record.book.title %></strong> by <%#= record.book.author %>-->
-<!--        <p class="text-gray-600">Borrowed on: <%#= record.created_at.strftime("%B %d, %Y") %></p>-->
-<!--        <p class="text-gray-600">-->
-<!--          Returned:-->
-          <%# if record.returned_at %>
-            <%#= record.returned_at.strftime("%B %d, %Y") %>
-          <%# else %>
-<!--            <span class="text-red-600">Not yet returned</span>-->
-          <%# end %>
-<!--        </p>-->
-<!--      </li>-->
-    <%# end %>
-<!--  </ul>-->
-  <%#= link_to "View Full History", "#", class: "mt-4 block text-blue-600 hover:underline" %>
-<%# else %>
-<!--  <p class="text-gray-500">No past borrowing records.</p>-->
-<%# end %>
+<% if @active_borrowings.any? %>
+  <ul class="space-y-3">
+    <% @active_borrowings.each do |record| %>
+      <li class="p-4 bg-white shadow-md rounded-lg flex items-center">
+        <div>
+          <p class="text-lg font-semibold"><%= record.book.title %></p>
+          <p class="text-sm text-gray-600">Borrowed <%= time_ago_in_words(record.borrowed_at) %> ago</p>
+        </div>
+        <%= link_to book_path(record.book), class: "ml-auto text-gray-500 hover:text-gray-700 flex items-center mr-10" do %>
+          <span class="mr-5">
+            View Book
+          </span>
+          <%= render "shared/arrow_top_right_icon" %>
+        <% end %>
+        <%= button_to "Return", borrowing_record_path(record), method: :patch, class: "bg-red-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="text-gray-500">You have no active borrowings.</p>
+<% end %>
+
+<h2 class="text-2xl font-semibold mt-10 mb-4">Borrowing History</h2>
+
+<% if @borrowing_history.any? %>
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <table class="w-full text-left">
+      <thead>
+      <tr class="text-gray-600 border-b pb-2">
+        <th class="py-2">Book Title</th>
+        <th class="py-2">Date Borrowed</th>
+        <th class="py-2">Date Returned</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @borrowing_history.each do |record| %>
+        <tr class="border-b">
+          <td class="py-3"><%= record.book.title %></td>
+          <td class="py-3 text-gray-600"><%= record.borrowed_at.strftime("%B %d, %Y") %></td>
+          <td class="py-3 text-gray-600">
+            <% if record.returned_at.present? %>
+              <%= record.returned_at.strftime("%B %d, %Y") %>
+            <% else %>
+              <span class="text-red-500">Not yet returned</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p class="text-gray-500">No past borrowings.</p>
+<% end %>

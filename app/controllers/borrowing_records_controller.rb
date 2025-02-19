@@ -21,9 +21,9 @@ class BorrowingRecordsController < ApplicationController
 
     if borrowing.user == Current.user
       if borrowing.update(returned_at: Time.current)
-        redirect_to book_path(borrowing.book), notice: "Book returned successfully!"
+        redirect_to request.referer || book_path(borrowing.book), notice: "Book returned successfully!"
       else
-        redirect_to book_path(borrowing.book), alert: "Something went wrong"
+        redirect_to request.referer || book_path(borrowing.book), alert: "Something went wrong"
       end
 
     else

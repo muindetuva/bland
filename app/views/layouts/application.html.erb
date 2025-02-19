@@ -29,7 +29,7 @@
 
           <%= link_to "Dashboard", dashboard_path, class: "ml-auto font-bold mx-4" %>
           <%= link_to "All Books", books_path, class: "font-bold mx-4" %>
-          <%= link_to "Profile", "#", class: "font-bold mx-4 mr-auto" %>
+          <%= link_to "Profile", profile_path, class: "font-bold mx-4 mr-auto" %>
 
           <% if Current.user.present? %>
             <%= button_to "Log out", session_path, method: :delete, class: "font-bold text-white bg-black p-2 rounded-lg" %>
