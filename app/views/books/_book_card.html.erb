@@ -1,0 +1,20 @@
+<%= link_to book_path(book), class: "m-2" do %>
+
+  <div class="w-56 h-64 bg-black flex items-center justify-center">
+    <p class="text-white font-bold">
+      <%= book.title %>
+    </p>
+  </div>
+  <div class="flex justify-between items-center">
+    <div class="">
+      <p class="text-lg font-semibold mt-3">
+        <%= book.title %>
+      </p>
+      <p class="text-sm text-gray-600">
+        <%= book.author %>
+      </p>
+    </div>
+    <%= render "shared/arrow_top_right_icon" %>
+  </div>
+
+<% end %>

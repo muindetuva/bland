@@ -1,4 +1,58 @@
-<h1 class="bg-red-300">Welcome to the dashboard</h1>
-<% if Current.user.present? %>
-  <%= button_to "Sign out", session_path, method: :delete %>
+<h1 class="text-2xl mt-2 mb-10"> Welcome, <%= Current.user.email_address.split("@").first.capitalize %>! </h1>
+
+
+<!--Borrowed Books-->
+<section>
+
+  <div class="flex justify-between">
+    <h2 class="text-2xl font-semibold mb-4">Some Your Borrowed Books</h2>
+
+    <div class="flex">
+      <%= link_to "View All", books_path, class: "mr-4" %>
+      <%= render "shared/arrow_icon" %>
+    </div>
+  </div>
+  <% if @borrowed_books.any? %>
+    <div class="space-y-4 flex flex-wrap">
+      <% @borrowed_books.first(4).each do |book| %>
+        <% borrowing_record = book.borrowing_records.find_by(returned_at: nil) %>
+        <div class="flex flex-col justify-between">
+
+          <%= render partial: "books/book_card", locals: {book: book} %>
+
+          <%= render partial: "shared/due_date", locals: {due_date: borrowing_record.due_date} %>
+
+          <%#= button_to "Return Book", borrowing_record_path(borrowing_record), method: :patch, class: "bg-black text-white px-4 py-2 rounded-md font-semibold hover:opacity-90 transition mt-4 block text-center" %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-500">You have no borrowed books.</p>
+  <% end %>
+
+</section>
+
+
+<!--Some of the available books-->
+<section class="mt-10">
+  <div class="flex justify-between">
+    <h2 class="text-2xl font-semibold mb-4">Available Books</h2>
+
+    <div class="flex">
+      <%= link_to "View All", books_path, class: "mr-4" %>
+      <%= render "shared/arrow_icon" %>
+    </div>
+  </div>
+<% if @available_books.any? %>
+  <div class="flex">
+    <% @available_books.first(5).each do |book| %>
+      <div class="">
+        <%= render partial: "books/book_card", locals: {book: book} %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-gray-500">No books available right now.</p>
 <% end %>
+</section>
+
