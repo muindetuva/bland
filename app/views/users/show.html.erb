@@ -1,0 +1,29 @@
+<div>
+  <h1 class="font-bold text-4xl">Users#show</h1>
+  <p>Find me in app/views/users/show.html.erb</p>
+</div>
+
+
+<!-- 📜 Borrowing History -->
+<!--<h2 class="text-2xl font-semibold mt-8 mb-4">Borrowing History</h2>-->
+<%# if @borrowing_history.any? %>
+<!--  <ul class="space-y-4">-->
+    <%# @borrowing_history.first(5).each do |record| %>
+<!--      <li class="p-4 border rounded-lg bg-white shadow-md">-->
+<!--        <strong><%#= record.book.title %></strong> by <%#= record.book.author %>-->
+<!--        <p class="text-gray-600">Borrowed on: <%#= record.created_at.strftime("%B %d, %Y") %></p>-->
+<!--        <p class="text-gray-600">-->
+<!--          Returned:-->
+          <%# if record.returned_at %>
+            <%#= record.returned_at.strftime("%B %d, %Y") %>
+          <%# else %>
+<!--            <span class="text-red-600">Not yet returned</span>-->
+          <%# end %>
+<!--        </p>-->
+<!--      </li>-->
+    <%# end %>
+<!--  </ul>-->
+  <%#= link_to "View Full History", "#", class: "mt-4 block text-blue-600 hover:underline" %>
+<%# else %>
+<!--  <p class="text-gray-500">No past borrowing records.</p>-->
+<%# end %>
