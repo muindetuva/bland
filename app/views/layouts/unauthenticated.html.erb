@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= content_for(:title) || "Bland" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= yield :head %>
+
+  <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+  <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
+
+  <%# Includes all stylesheet files in app/assets/stylesheets %>
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body>
+<main class="min-h-screen max-w-screen-xl mx-auto flex flex-col px-6">
+
+  <!--  Nav-->
+  <nav class="flex items-center py-4">
+    <%= link_to "Bland", root_path, class: "text-5xl font-bold" %>
+    <% if request.path == new_session_path %>
+      <%= link_to "Register", new_registration_path, class: "block ml-auto m-2 pointer" %>
+    <% elsif request.path == new_registration_path %>
+      <%= link_to "Login", new_session_path, class: "block ml-auto m-2 pointer" %>
+    <% end %>
+  </nav>
+
+  <!--  Container-->
+  <div class="flex-grow flex flex-col items-center justify-center gap-10 lg:w-1/2 mx-auto">
+
+    <%= yield %>
+
+  </div>
+
+</main>
+</body>
+</html>

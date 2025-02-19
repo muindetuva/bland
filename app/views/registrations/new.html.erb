@@ -1,22 +1,41 @@
-<h1>Sign Up</h1>
+<h1 class="text-4xl font-bold text-center mb-2">Get Started</h1>
+<h2 class="text-2xl text-gray-600 text-center mb-8">Create an Account</h2>
 
-<%= form_with model: @user, url: registration_path, method: :post do |form| %>
+<!-- Display Errors-->
+<% if @user.errors.any? %>
+  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+    <p class="font-semibold">There were some errors:</p>
+    <ul class="list-disc list-inside text-sm">
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @user, url: registration_path, method: :post, class: "space-y-6 w-full bg-white p-8 shadow-md rounded-lg" do |form| %>
+
+  <!-- Email-->
   <div>
-    <%= form.label :email_address %>
-    <%= form.email_field :email_address, required: true %>
+    <%= form.label :email_address, class: "block font-semibold text-gray-700" %>
+    <%= form.email_field :email_address, required: true, class: "w-full mt-1 p-3 border border-gray-300 rounded-md" %>
   </div>
 
+  <!-- Password-->
   <div>
-    <%= form.label :password %>
-    <%= form.password_field :password, required: true %>
+    <%= form.label :password, class: "block font-semibold text-gray-700" %>
+    <%= form.password_field :password, required: true, class: "w-full mt-1 p-3 border border-gray-300 rounded-md" %>
   </div>
 
+  <!-- Password Confirmation-->
   <div>
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation, required: true %>
+    <%= form.label :password_confirmation, class: "block font-semibold text-gray-700" %>
+    <%= form.password_field :password_confirmation, required: true, class: "w-full mt-1 p-3 border border-gray-300 rounded-md" %>
   </div>
 
+<!--  Submit-->
   <div>
-    <%= form.submit "Sign Up" %>
+    <%= form.submit "Sign Up", class: "w-full bg-black text-white py-3 px-4 rounded-md font-semibold hover:opacity-90 transition" %>
   </div>
+
 <% end %>

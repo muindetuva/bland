@@ -3,6 +3,7 @@ class RegistrationsController < ApplicationController
 
   def new
     @user = User.new
+    render layout: "unauthenticated"
   end
 
   def create
@@ -12,7 +13,7 @@ class RegistrationsController < ApplicationController
       start_new_session_for @user
       redirect_to dashboard_path
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity, layout: "unauthenticated"
     end
 
   end
