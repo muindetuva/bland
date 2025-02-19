@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   before_action :require_authentication, only: [ :dashboard ]
 
   def home
+    render layout: false
     redirect_to dashboard_path if authenticated?
   end
   def dashboard
