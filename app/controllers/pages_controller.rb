@@ -3,8 +3,11 @@ class PagesController < ApplicationController
   before_action :require_authentication, only: [ :dashboard ]
 
   def home
+    if authenticated?
+      redirect_to dashboard_path and return
+    end
+
     render layout: false
-    redirect_to dashboard_path if authenticated?
   end
   def dashboard
     @borrowed_books = Current.user.borrowed_books.joins(:borrowing_records)
