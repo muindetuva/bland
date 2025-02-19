@@ -5,7 +5,7 @@
 <section>
 
   <div class="flex justify-between">
-    <h2 class="text-2xl font-semibold mb-4">Some Your Borrowed Books</h2>
+    <h2 class="text-2xl font-semibold mb-4">Some Of Your Borrowed Books</h2>
 
     <div class="flex">
       <%= link_to "View All", books_path, class: "mr-4" %>
@@ -13,7 +13,7 @@
     </div>
   </div>
   <% if @borrowed_books.any? %>
-    <div class="space-y-4 flex flex-wrap">
+    <div class="space-y-4 flex flex-wrap justify-between">
       <% @borrowed_books.first(4).each do |book| %>
         <% borrowing_record = book.borrowing_records.find_by(returned_at: nil) %>
         <div class="flex flex-col justify-between">
@@ -44,8 +44,8 @@
     </div>
   </div>
 <% if @available_books.any? %>
-  <div class="flex">
-    <% @available_books.first(5).each do |book| %>
+  <div class="flex flex-wrap justify-between">
+    <% @available_books.first(4).each do |book| %>
       <div class="">
         <%= render partial: "books/book_card", locals: {book: book} %>
       </div>
