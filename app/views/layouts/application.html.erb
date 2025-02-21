@@ -25,16 +25,25 @@
   <body>
       <main class="min-h-screen max-w-screen-xl mx-auto flex flex-col px-6">
         <nav class="flex items-center py-4">
+<!--          Logo-->
           <%= link_to "Bland", root_path, class: "text-5xl font-bold" %>
 
-          <%= link_to "Dashboard", dashboard_path, class: "ml-auto font-bold mx-4" %>
-          <%= link_to "All Books", books_path, class: "font-bold mx-4" %>
-          <%= link_to "Profile", profile_path, class: "font-bold mx-4 mr-auto" %>
+<!--          Nav links-->
+          <div class="flex space-x-6 ml-auto mr-auto">
+            <%= link_to "Dashboard", dashboard_path, class: "font-bold text-gray-800 hover:text-gray-400 transition px-2 #{'text-gray-600 border-b-2 border-gray-800' if current_page?(dashboard_path)}" %>
 
+            <%= link_to "All Books", books_path, class: "font-bold text-gray-800 hover:text-gray-400 transition px-2 #{'text-gray-600 border-b-2 border-gray-800' if current_page?(books_path)}" %>
+
+            <%= link_to "Profile", profile_path, class: "font-bold text-gray-800 hover:text-gray-400 transition px-2 #{'text-gray-600 border-b-2 border-gray-800' if current_page?(profile_path)}" %>
+          </div>
+
+<!--          Log out button-->
           <% if Current.user.present? %>
-            <%= button_to "Log out", session_path, method: :delete, class: "font-bold text-white bg-black p-2 rounded-lg" %>
+            <%= button_to "Log out", session_path, method: :delete, class: "font-bold text-white bg-black px-4 py-2 rounded-lg ml-6 cursor-pointer hover:opacity-50 transition" %>
           <% end %>
         </nav>
+
+
 
         <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 w-auto">
           <% if flash[:alert] %>
