@@ -18,6 +18,11 @@
     <p class="text-xs text-gray-500 mt-2">
       ISBN: <%= @book.isbn %>
     </p>
+
+    <!-- Available copies -->
+    <p class="mt-4 text-gray-600">
+      <%= @available_copies %> out of <%= @total_copies %> copies are available.
+    </p>
   </div>
 
 <!--Actions-->

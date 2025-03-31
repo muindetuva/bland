@@ -18,7 +18,7 @@
         <% borrowing_record = book.borrowing_records.find_by(returned_at: nil) %>
         <div class="flex flex-col justify-between">
 
-          <%= render partial: "books/book_card", locals: {book: book} %>
+          <%= render partial: "books/book_card", locals: {book: book.book} %>
 
           <%= render partial: "shared/due_date", locals: {due_date: borrowing_record.due_date} %>
 

@@ -1,13 +1,3 @@
-
-
-<div class="mb-6 mt-20 space-x-3">
-  <%= link_to "All Books", books_path(filter: "all"), class: "px-4 py-2 rounded-md font-semibold #{params[:filter] == 'all' || params[:filter].blank? ? 'bg-black text-white' : 'bg-gray-200 hover:bg-gray-300'}" %>
-
-  <%= link_to "Available Books", books_path(filter: "available"), class: "px-4 py-2 rounded-md font-semibold #{params[:filter] == 'available' ? 'bg-black text-white' : 'bg-gray-200 hover:bg-gray-300'}" %>
-
-  <%= link_to "Borrowed Books", books_path(filter: "borrowed"), class: "px-4 py-2 rounded-md font-semibold #{params[:filter] == 'borrowed' ? 'bg-black text-white' : 'bg-gray-200 hover:bg-gray-300'}" %>
-</div>
-
 <div class="flex flex-wrap gap-10 mt-20 ">
 
 

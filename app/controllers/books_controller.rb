@@ -1,20 +1,13 @@
 class BooksController < ApplicationController
   def index
-
-    @filter = params[:filter] || "all"
-
-    @books = case @filter
-    when "available"
-      Book.where.not(id: BorrowingRecord.where(returned_at: nil).select(:book_id))
-    when "borrowed"
-      Book.where(id: BorrowingRecord.where(returned_at: nil).select(:book_id))
-    else
-      Book.all
-    end
+    @books = Book.all
   end
 
 
-  def show
+    def show
     @book = Book.find(params[:id])
-  end
+
+    @total_copies = @book.book_copies.count
+    @available_copies = @book.book_copies.where.not(id: BorrowingRecord.where(returned_at: nil).select(:book_copy_id)).count
+    end
 end

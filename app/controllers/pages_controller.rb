@@ -14,7 +14,8 @@ class PagesController < ApplicationController
                              .where(borrowing_records: { returned_at: nil })
                              .includes(:borrowing_records)
 
-    @available_books = Book.where.not(id: BorrowingRecord.where(returned_at: nil).pluck(:book_id))
+    @available_books = Book.left_outer_joins(:book_copies)
+                           .where.not(book_copies: { id: BorrowingRecord.where(returned_at: nil).pluck(:book_copy_id) })
 
   end
 end

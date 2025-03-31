@@ -9,8 +9,8 @@ class BookCopy < ApplicationRecord
 
   scope :available, -> {
     left_outer_joins(:borrowing_records)
-      .where(borrowing_records: { returned_at: nil })
       .group("book_copies.id")
-      .having("COUNT(borrowing_records.id) = 0")
+      .having("COUNT(borrowing_records.id) = 0 OR MAX(borrowing_records.returned_at) IS NOT NULL")
   }
+
 end
