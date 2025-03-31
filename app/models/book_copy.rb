@@ -6,4 +6,11 @@ class BookCopy < ApplicationRecord
   def available?
     borrowing_records.where(returned_at: nil).empty?
   end
+
+  scope :available, -> {
+    left_outer_joins(:borrowing_records)
+      .where(borrowing_records: { returned_at: nil })
+      .group("book_copies.id")
+      .having("COUNT(borrowing_records.id) = 0")
+  }
 end

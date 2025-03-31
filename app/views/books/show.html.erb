@@ -22,7 +22,7 @@
 
 <!--Actions-->
   <div class="mt-6 md:mt-0 flex flex-col items-center md:items-start space-y-3">
-    <% borrowing_record = BorrowingRecord.find_by(book: @book, returned_at: nil) %>
+    <% borrowing_record = BorrowingRecord.joins(:book_copy).find_by(book_copies: { book_id: @book.id }, returned_at: nil) %>
 
     <% if borrowing_record %>
       <% if borrowing_record.user == Current.user %>
@@ -36,7 +36,7 @@
       <% end %>
     <% else %>
 
-      <%= button_to "Borrow", borrowing_records_path(book_id: @book.id), method: :post, class: "bg-black text-white px-4 py-2 rounded-md font-semibold hover:opacity-90 transition" %>
+      <%= button_to "Borrow", borrowing_records_path(book_copy_id: @book.book_copies.available.first&.id), method: :post, class: "bg-black text-white px-4 py-2 rounded-md font-semibold hover:opacity-90 transition" %>
 
     <% end %>
   </div>

@@ -2,13 +2,13 @@ class BorrowingRecord < ApplicationRecord
   before_validation :set_default_due_date
 
   belongs_to :user
-  belongs_to :book
+  belongs_to :book_copy
 
 
   validates :borrowed_at , presence: true
 
   # Ensure a book cannot be borrowed twice at the same time
-  validates :book_id, uniqueness: { scope: :returned_at, message: "is already borrowed and must be returned first" }, unless: -> { returned_at.present? }
+  validates :book_copy_id, uniqueness: { scope: :returned_at, message: "is already borrowed and must be returned first" }, unless: -> { returned_at.present? }
 
 
 

@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :borrowing_records, dependent: :destroy
-  has_many :borrowed_books, through: :borrowing_records, source: :book
+  has_many :borrowed_books, through: :borrowing_records, source: :book_copy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 

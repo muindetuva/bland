@@ -6,10 +6,10 @@
     <% @active_borrowings.each do |record| %>
       <li class="p-4 bg-white shadow-md rounded-lg flex items-center">
         <div>
-          <p class="text-lg font-semibold"><%= record.book.title %></p>
+          <p class="text-lg font-semibold"><%= record.book_copy.book.title %></p>
           <p class="text-sm text-gray-600">Borrowed <%= time_ago_in_words(record.borrowed_at) %> ago</p>
         </div>
-        <%= link_to book_path(record.book), class: "ml-auto text-gray-500 hover:text-gray-700 flex items-center mr-10" do %>
+        <%= link_to book_path(record.book_copy.book), class: "ml-auto text-gray-500 hover:text-gray-700 flex items-center mr-10" do %>
           <span class="mr-5">
             View Book
           </span>
@@ -38,7 +38,7 @@
       <tbody>
       <% @borrowing_history.each do |record| %>
         <tr class="border-b">
-          <td class="py-3"><%= record.book.title %></td>
+          <td class="py-3"><%= record.book_copy.book.title %></td>
           <td class="py-3 text-gray-600"><%= record.borrowed_at.strftime("%B %d, %Y") %></td>
           <td class="py-3 text-gray-600">
             <% if record.returned_at.present? %>
