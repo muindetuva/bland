@@ -3,14 +3,14 @@ class BookCopy < ApplicationRecord
   has_many :borrowing_records, dependent: :destroy
   has_many :users, through: :borrowing_records
 
-  def available?
-    borrowing_records.where(returned_at: nil).empty?
-  end
+  validates :status, inclusion: { in: %w[available borrowed] }
 
-  scope :available, -> {
-    left_outer_joins(:borrowing_records)
-      .group("book_copies.id")
-      .having("COUNT(borrowing_records.id) = 0 OR MAX(borrowing_records.returned_at) IS NOT NULL")
-  }
+  before_create :set_default_status
+
+  private
+
+  def set_default_status
+    self.status ||= "available"
+  end
 
 end

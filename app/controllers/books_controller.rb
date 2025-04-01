@@ -4,10 +4,12 @@ class BooksController < ApplicationController
   end
 
 
-    def show
+  def show
     @book = Book.find(params[:id])
 
     @total_copies = @book.book_copies.count
-    @available_copies = @book.book_copies.where.not(id: BorrowingRecord.where(returned_at: nil).select(:book_copy_id)).count
-    end
+    @available_copies = @book.book_copies.where(status: "available").count
+    @user_borrowing_record = Current.user.borrowing_records.find_by(book_copy: @book.book_copies, returned_at: nil)
+    @available_copy = @book.book_copies.find_by(status: "available") # Find the first available book copy
+  end
 end

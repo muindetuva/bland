@@ -19,30 +19,23 @@
       ISBN: <%= @book.isbn %>
     </p>
 
-    <!-- Available copies -->
-    <p class="mt-4 text-gray-600">
-      <%= @available_copies %> out of <%= @total_copies %> copies are available.
-    </p>
   </div>
 
-<!--Actions-->
-  <div class="mt-6 md:mt-0 flex flex-col items-center md:items-start space-y-3">
-    <% borrowing_record = BorrowingRecord.joins(:book_copy).find_by(book_copies: { book_id: @book.id }, returned_at: nil) %>
+  <!-- Available copies -->
+  <p class="mt-4 text-gray-600">
+    <%= @available_copies %> out of <%= @total_copies %> copies are available.
+  </p>
 
-    <% if borrowing_record %>
-      <% if borrowing_record.user == Current.user %>
+  <% if @user_borrowing_record %>
+    <p class="text-sm text-gray-500">You have already borrowed a copy of this book.</p>
+    <%= button_to "Return Book", borrowing_record_path(@user_borrowing_record), method: :patch, class: "bg-red-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700" %>
+  <% elsif @available_copy %>
+    <%= button_to "Borrow", borrowing_records_path(book_copy_id: @available_copy.id), method: :post, class: "bg-black text-white px-4 py-2 rounded-md font-semibold hover:opacity-90 transition" %>
+  <% else %>
+    <p class="text-sm text-gray-500">📚 There are no available copies to borrow.</p>
+  <% end %>
 
-        <%= button_to "Return Book", borrowing_record_path(borrowing_record), method: :patch, class: "bg-red-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700 transition" %>
 
-      <% else %>
 
-        <p class="text-sm text-gray-500">📚 This book is currently borrowed.</p>
 
-      <% end %>
-    <% else %>
-
-      <%= button_to "Borrow", borrowing_records_path(book_copy_id: @book.book_copies.available.first&.id), method: :post, class: "bg-black text-white px-4 py-2 rounded-md font-semibold hover:opacity-90 transition" %>
-
-    <% end %>
-  </div>
 </div>
